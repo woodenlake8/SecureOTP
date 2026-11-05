@@ -15,8 +15,10 @@ jobs:
         with:
           distribution: temurin
           java-version: '17'
+      
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
+
       - name: Apply privacy hardening
         run: python3 harden_secureotp.py .
       - name: Show changes and check patch
