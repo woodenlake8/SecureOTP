@@ -16,8 +16,14 @@ jobs:
           distribution: temurin
           java-version: '17'
       
+      
       - name: Set up Android SDK
-        uses: android-actions/setup-android@v3
+        shell: bash
+        run: |
+          echo "ANDROID_HOME=$ANDROID_SDK_ROOT" >> "$GITHUB_ENV"
+          yes | sdkmanager --licenses > /dev/null || true
+          sdkmanager "platform-tools" "platforms;android-35" "build-tools;35.0.0"
+
 
       - name: Apply privacy hardening
         run: python3 harden_secureotp.py .
