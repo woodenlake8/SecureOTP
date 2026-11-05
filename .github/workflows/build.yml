@@ -16,6 +16,9 @@ jobs:
           distribution: temurin
           java-version: '17'
       
+permissions:
+  contents: write
+
       
       
       - name: Set up Android SDK
@@ -54,3 +57,13 @@ jobs:
           path: app/build/outputs/apk/debug/*.apk
           if-no-files-found: error
           retention-days: 7
+
+      - name: Publish APK as GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: hardened-latest
+          name: SecureOTP Privacy Hardened
+          files: app/build/outputs/apk/debug/*.apk
+          prerelease: true
+          make_latest: false
+          overwrite_files: true
